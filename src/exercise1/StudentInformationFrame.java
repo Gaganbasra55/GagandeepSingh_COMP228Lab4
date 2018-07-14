@@ -1,46 +1,48 @@
 package exercise1;
 
-import java.awt.BorderLayout;
-import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ItemEvent;
-import java.awt.event.ItemListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-
+import java.awt.*;
+import java.awt.event.*;
 import javax.swing.*;
 
 @SuppressWarnings("serial")
 public class StudentInformationFrame extends JFrame implements ActionListener, ItemListener, MouseListener {
 
-    // Declaring label array
+    // label array declaration
     private JLabel[] myLabel;
-    // Declaring label names array
-    private final String[] names = { "Name:", "Address:", "Province:", "City:", "Postal Code:", "Phone number:",
-            "Email:" };
-    // Declaring text field array
-    private JTextField[] myTxt;
-    // Declaring check boxes
-    private final JCheckBox checkStudentCouncil, checkVolunteerWork;
-    // Declaring radio buttons
-    private final JRadioButton radioComputerScience, radioBusiness;
-    // Declaring radio button group
-    private final ButtonGroup groupStudentMajor;
+
+    // label names array declaration
+    private final String[] names;
+
+    // text field array declaration
+    private JTextField[] myText;
+
     // Declaring combo box to hold string values
     private final JComboBox<String> course;
-    // Declaring a JList to display courses selected
-    private JList<String> courseList;
-    // Declaring a list model to manipulate the JList element
-    private DefaultListModel<String> listModel = new DefaultListModel<String>();
+
+    // radio buttons declaration
+    private final JRadioButton radioComputerScience, radioBusiness;
+
+    // radio button group declaration
+    private final ButtonGroup groupStudentMajor;
+
+    // check boxes declaration
+    private final JCheckBox checkStudentCouncil, checkVolunteerWork, checkSports;
+
     // Declaring a button to display the information
     private final JButton display;
-    // Declaring a text area that will contain information about the student
-    private final JTextArea output;
-    // Declaring scroll pane that will be attached to the text area
+
+    // JList to display courses selected
+    private JList<String> courseList;
+
+    // list model to manipulate the JList elements
+    private DefaultListModel<String> listModel = new DefaultListModel<String>();
+
+    // scroll pane
     private final JScrollPane scroll;
+
+    // text area that will containing student information
+    private final JTextArea output;
+
     // Declaring panels to organize the content
     private final JPanel west, east, eastNorth, eastCenter, south, southBox, center;
 
@@ -48,34 +50,31 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
 
     public StudentInformationFrame() {
 
-        // Setting title
+        // title
         super("Student Information Form");
-
-        // Creating check boxes
-        checkStudentCouncil = new JCheckBox("Student Council");
-        checkVolunteerWork = new JCheckBox("Volunteer Work");
 
         // Creating radio buttons
         radioComputerScience = new JRadioButton("Computer Science");
         radioBusiness = new JRadioButton("Business");
 
-        // Creating radio button group and adding radio buttons to it
+        // Creating check boxes
+        checkStudentCouncil = new JCheckBox("Student Council");
+        checkVolunteerWork = new JCheckBox("Volunteer Work");
+        checkSports = new JCheckBox("Sports");
+
+        // radio button group and adding radio buttons
         groupStudentMajor = new ButtonGroup();
         groupStudentMajor.add(radioComputerScience);
         groupStudentMajor.add(radioBusiness);
 
-        // Creating and configuring combo box
+        // Creating JList element
+        courseList = new JList<String>(listModel);
+
+        // combo box
         course = new JComboBox<String>();
         course.setMaximumRowCount(3);
         course.setPreferredSize(new Dimension(250, 60));
         course.setSize(new Dimension(100, 500));
-
-        // Creating JList element
-        courseList = new JList<String>(listModel);
-
-        // Creating button to display information
-        display = new JButton("Display");
-        display.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
         // Creating text area that will hold information
         output = new JTextArea(4, 75);
@@ -87,7 +86,12 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
         scroll.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_ALWAYS);
         scroll.setAlignmentX(JComponent.CENTER_ALIGNMENT);
 
-        // Creating different panels
+        // button to display information
+        display = new JButton("Display");
+        display.setAlignmentX(JComponent.CENTER_ALIGNMENT);
+
+
+        // Creating panels
         west = new JPanel();
         east = new JPanel();
         eastNorth = new JPanel();
@@ -97,10 +101,10 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
         center = new JPanel();
 
         // Setting frame layout
-        setLayout(new BorderLayout(5, 5));
+        setLayout(new BorderLayout(10, 10));
 
         // Setting west panel layout
-        west.setLayout(new GridLayout(7, 1, 3, 3));
+        west.setLayout(new GridLayout(7, 1, 3, 4));
 
         // Adding panels to the frame
         add(west, BorderLayout.WEST);
@@ -118,8 +122,10 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
         southBox.add(scroll);
 
         // Initializing label and text field array
+        names = new String[]{"Name:", "Address:", "Province:", "City:", "Postal Code:", "Phone number:",
+                "Email:"};
         myLabel = new JLabel[names.length];
-        myTxt = new JTextField[names.length];
+        myText = new JTextField[names.length];
 
         // Loop to create labels and text fields
         // Adding labels and text fields inside the loop
@@ -127,35 +133,35 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
         for (int i = 0; i < names.length; i++) {
 
             myLabel[i] = new JLabel(names[i]);
-            myTxt[i] = new JTextField(20);
+            myText[i] = new JTextField(20);
             west.add(myLabel[i]);
-            west.add(myTxt[i]);
+            west.add(myText[i]);
 
         }
-
         // Setting layout to panel
         center.setLayout(new BorderLayout(2, 2));
+
         // Adding check boxes to panel
         center.add(checkStudentCouncil, BorderLayout.NORTH);
         center.add(checkVolunteerWork, BorderLayout.CENTER);
+        center.add(checkSports, BorderLayout.SOUTH);
 
         // Setting layout to panel
         east.setLayout(new BorderLayout(2, 40));
-        // Adding panel inside another panel
-        east.add(eastNorth, BorderLayout.NORTH);
+
         // Setting layout to panel
         eastNorth.setLayout(new FlowLayout());
+
+        // Adding panel inside another panel
+        east.add(eastNorth, BorderLayout.NORTH);
+        east.add(eastCenter, BorderLayout.CENTER);
+
         // Adding radio buttons to panel
         eastNorth.add(radioComputerScience);
         eastNorth.add(radioBusiness);
 
-        // Adding panel inside another panel
-        east.add(eastCenter, BorderLayout.CENTER);
         // Setting layout to panel
         eastCenter.setLayout(new GridLayout(2, 1, 0, 0));
-        // Adding combo box and JList to panel
-        eastCenter.add(course);
-        eastCenter.add(courseList);
 
         // Adding listener to combo box, button, and radio buttons
         course.addItemListener(this);
@@ -163,12 +169,32 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
         radioBusiness.addActionListener(this);
         radioComputerScience.addActionListener(this);
 
+        // Adding combo box and JList to panel
+        eastCenter.add(course);
+        eastCenter.add(courseList);
+
+
+    }
+
+    // Listener for combo box
+    @Override
+    public void itemStateChanged(ItemEvent e) {
+
+        // When an item is selected
+        if (e.getStateChange() == ItemEvent.SELECTED) {
+
+            // If the selected item is not in the list, it is added
+            if (!listModel.contains(e.getItem().toString()))
+                listModel.addElement(e.getItem().toString());
+
+        }
+
     }
 
     // Listener for radio buttons
     @Override
     public void actionPerformed(ActionEvent e) {
-        // TODO Auto-generated method stub
+
 
         JRadioButton auxRadio = (JRadioButton) e.getSource();
 
@@ -181,9 +207,10 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
             // Adding elements to combo box
             course.addItem("");
             course.addItem("ASP.Net");
+            course.addItem("Structure of HCIS");
             course.addItem("Java");
             course.addItem("C#");
-            course.addItem("Structure of HCIS");
+
 
         }
 
@@ -205,26 +232,11 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
 
     }
 
-    // Listener for combo box
-    @Override
-    public void itemStateChanged(ItemEvent e) {
-        // TODO Auto-generated method stub
-
-        // When an item is selected
-        if (e.getStateChange() == ItemEvent.SELECTED) {
-
-            // If the selected item is not in the list, it is added
-            if (!listModel.contains(e.getItem().toString()))
-                listModel.addElement(e.getItem().toString());
-
-        }
-
-    }
 
     // Listener for display button
     @Override
     public void mouseClicked(MouseEvent e) {
-        // TODO Auto-generated method stub
+
 
         // Creating courses, activities and program variables
         String myCourses = "";
@@ -233,17 +245,34 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
 
         // Checking which check boxes were selected and assigning the value to
         // otherActivities variable
-        if (checkStudentCouncil.isSelected() && checkVolunteerWork.isSelected())
+        if (checkStudentCouncil.isSelected() && checkVolunteerWork.isSelected() && checkSports.isSelected())
 
-            otherActivities = checkStudentCouncil.getText() + "-" + checkVolunteerWork.getText();
+            otherActivities = checkStudentCouncil.getText() + "-" + checkVolunteerWork.getText() + "-" + checkSports.getText();
 
-        else if (checkStudentCouncil.isSelected() && !checkVolunteerWork.isSelected())
+        else if (checkStudentCouncil.isSelected() && !checkVolunteerWork.isSelected() && !checkSports.isSelected())
 
             otherActivities = checkStudentCouncil.getText();
 
-        else if (checkVolunteerWork.isSelected() && !checkStudentCouncil.isSelected())
+        else if (checkVolunteerWork.isSelected() && !checkStudentCouncil.isSelected() && !checkSports.isSelected())
 
             otherActivities = checkVolunteerWork.getText();
+
+        else if (checkSports.isSelected() && !checkStudentCouncil.isSelected() && !checkVolunteerWork.isSelected())
+
+            otherActivities = checkSports.getText();
+
+
+        else if (checkStudentCouncil.isSelected() && checkVolunteerWork.isSelected() && !checkSports.isSelected())
+
+            otherActivities = checkStudentCouncil.getText() + "-" + checkVolunteerWork.getText();
+
+        else if (checkStudentCouncil.isSelected() && !checkVolunteerWork.isSelected() && checkSports.isSelected())
+
+            otherActivities = checkStudentCouncil.getText() + "-" + checkSports.getText();
+
+        else if (!checkStudentCouncil.isSelected() && checkVolunteerWork.isSelected() && checkSports.isSelected())
+
+            otherActivities = checkVolunteerWork.getText() + "-" + checkSports.getText();
 
         else if (!checkStudentCouncil.isSelected() && !checkVolunteerWork.isSelected())
 
@@ -273,8 +302,8 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
         }
 
         // Printing student information in text area
-        output.setText(String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s%n%s%s", myTxt[0].getText(), myTxt[1].getText(),
-                myTxt[2].getText(), myTxt[3].getText(), myTxt[4].getText(), myTxt[5].getText(), myTxt[6].getText(),
+        output.setText(String.format("%s, %s, %s, %s, %s, %s, %s, %s, %s%n%s%s", myText[0].getText(), myText[1].getText(),
+                myText[2].getText(), myText[3].getText(), myText[4].getText(), myText[5].getText(), myText[6].getText(),
                 otherActivities, program, "Courses:", myCourses));
 
         // Setting text area cursor at the beginning
@@ -282,29 +311,30 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
 
     }
 
+
+
     // Not implemented methods
 
     @Override
-    public void mouseEntered(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
-    public void mouseExited(MouseEvent e) {
-        // TODO Auto-generated method stub
-
-    }
-
-    @Override
     public void mousePressed(MouseEvent e) {
-        // TODO Auto-generated method stub
+
 
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+
+
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+
 
     }
 
