@@ -308,16 +308,12 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
 
         // Setting text area cursor at the beginning
         output.setCaretPosition(0);
-
     }
-
-
-
+    
     // Not implemented methods
 
     @Override
     public void mousePressed(MouseEvent e) {
-
 
     }
 
@@ -329,12 +325,10 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
     @Override
     public void mouseEntered(MouseEvent e) {
 
-
     }
 
     @Override
     public void mouseExited(MouseEvent e) {
-
 
     }
 
