@@ -87,8 +87,7 @@ public class StudentInformationFX extends Application {
         // Values for list view
         ObservableList<String> computerScienceCourses = FXCollections.observableArrayList("ASP.Net", "Structure of HCIS", "Java", "C#");
 
-        ObservableList<String> businessCourses = FXCollections.observableArrayList("Accounting","Operation Research","Business Management",
-                "Marketing");
+        ObservableList<String> businessCourses = FXCollections.observableArrayList("Accounting","Operation Research","Business Management", "Marketing");
 
         // Creating radio buttons
         radioComputerScience = new RadioButton("Computer Science");
