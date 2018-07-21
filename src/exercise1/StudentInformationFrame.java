@@ -279,7 +279,9 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
             otherActivities = "No activities";
 
         // Checking which radio button was selected and assigning the value to
+
         // program variable
+
         if (radioBusiness.isSelected())
 
             program = radioBusiness.getText();
@@ -309,7 +311,7 @@ public class StudentInformationFrame extends JFrame implements ActionListener, I
         // Setting text area cursor at the beginning
         output.setCaretPosition(0);
     }
-    
+
     // Not implemented methods
 
     @Override
